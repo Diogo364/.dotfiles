@@ -1,0 +1,8 @@
+[user]
+      name = Diogo Telheiro do Nascimento
+	  email = 44041957+Diogo364@users.noreply.github.com
+	  username = Diogo364
+[core]
+	  editor = nvim
+	  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	  pager = delta

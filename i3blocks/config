@@ -1,0 +1,88 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+# Change $SCRIPT_DIR to the location of your scripts!
+command=$SCRIPT_DIR/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[keyindicator]
+command=$SCRIPT_DIR/keyindicator/keyindicator
+KEY=CAPS
+markup=pango
+interval=once
+signal=11
+
+[keyindicator]
+command=$SCRIPT_DIR/keyindicator/keyindicator
+KEY=NUM
+markup=pango
+interval=once
+signal=11
+
+[gpu-load]
+command=$SCRIPT_DIR/gpu-load/gpu-load
+label=GPU 
+interval=10
+#min_width=GPU 100% 100% 100% 100%
+#GPU_BRAND=NVIDIA // or AMD
+#T_WARN=70
+#T_CRIT=90
+#
+[cpu_usage]
+command=$SCRIPT_DIR/cpu_usage/cpu_usage
+label=CPU. 
+interval=10
+min_width=CPU 100.00%
+separator=false
+
+[memory]
+command=$SCRIPT_DIR/memory/memory
+label=MEM. 
+interval=30
+
+
+[disk]
+command=$SCRIPT_DIR/disk/disk
+label=HOME 
+interval=30
+
+[battery]
+command=$SCRIPT_DIR/battery/battery
+label=BAT. 
+interval=30
+
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
+interval=once
+signal=10
+
+[time]
+command=$SCRIPT_DIR/time/time
+interval=1
+#TZ_FILE=~/.tz
+STRFTIME_FORMAT=%Y-%m-%d %H:%M
+
