@@ -1,0 +1,7 @@
+[/]
+open-application-menu=@as []
+screenshot=['<Shift><Alt>numbersign']
+show-screenshot-ui=['<Shift><Alt>dollar']
+toggle-application-view=['F4']
+toggle-message-tray=['<Super>v']
+toggle-overview=@as []

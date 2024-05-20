@@ -1,0 +1,18 @@
+[/]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+email=['<Super>e']
+home=['<Super>f']
+rotate-video-lock-static=@as []
+screensaver=['<Super>Escape']
+terminal=['<Super>t']
+www=['<Super>b']
+
+[custom-keybindings/custom0]
+binding='<Super>F2'
+command='code -n Documents/workstuff/aiqa/'
+name='Open AIQA Folder in VSCode'
+
+[custom-keybindings/custom1]
+binding='<Shift><Alt>at'
+command='print-tesseract'
+name='Extract text from image'
