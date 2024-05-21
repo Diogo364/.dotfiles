@@ -7,3 +7,6 @@
 [submodule ".config/i3blocks/scripts"]
 	path = .config/i3blocks/scripts
 	url = https://github.com/vivien/i3blocks-contrib.git
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = https://github.com/Diogo364/my-nvim.git
