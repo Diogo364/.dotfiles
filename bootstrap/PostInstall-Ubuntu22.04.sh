@@ -42,3 +42,5 @@ cat ./keybindings/ubuntu-gnome/mutter-keybindings | dconf load /org/gnome/mutter
 cat ./keybindings/ubuntu-gnome/wayland-keybindings | dconf load /org/gnome/mutter/wayland/keybindings/
 
 # ---------------------------------------------------------------------- #
+
+bash ./github_instalations.sh

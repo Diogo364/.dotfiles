@@ -1,4 +1,9 @@
 #!/bin/bash
+. ./utils.sh
+
+BASE_PACKAGES=$( cat "$BASE_PACKAGES" )
+COMMON_PACKAGES=$( cat "$COMMON_PACKAGES" )
+FLATPAK_PACKAGES=$( cat "$FLATPAK_PACKAGES" )
 
 # Custom PACMAN Configuration
 PACCONF=/etc/pacman.conf
@@ -15,17 +20,9 @@ sudo pacman -Syu
 
 # Installing apps
 echo "Installing software"
-sudo pacman -S \
-	nano \
-	neovim \
-	git \
-	neofetch \
-	gufw \
-	flatpak \
-	ffmpeg \
-	base-devel \
-	yay \
-	just \
-	curl \
-	wget \
-	brave-browser
+
+## Install apt programs ##
+sudo pacman -S $BASE_PACKAGES 
+sudo pacman -S $COMMON_PACKAGES 
+
+bash ./github_instalations.sh

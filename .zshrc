@@ -20,6 +20,8 @@ vscode-text() {
 	code -n /tmp/tmp.txt
 }
 
+. "$HOME/.asdf/asdf.sh"
+. ~/.asdf/plugins/golang/set-env.zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
