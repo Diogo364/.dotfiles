@@ -1,12 +1,9 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule "nvim"]
-	path = nvim
-	url = https://github.com/Diogo364/my-nvim.git
 [submodule ".config/i3blocks/scripts"]
 	path = .config/i3blocks/scripts
 	url = https://github.com/vivien/i3blocks-contrib.git
 [submodule ".config/nvim"]
 	path = .config/nvim
-	url = https://github.com/Diogo364/my-nvim.git
+	url = git@github.com:Diogo364/my-nvim.git
