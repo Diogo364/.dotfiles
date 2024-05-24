@@ -9,10 +9,10 @@ theme-variant='dark'
 [keybindings]
 session-add-down='<Ctrl><Alt>d'
 session-add-right='<Ctrl><Alt>r'
-session-switch-to-terminal-down='<Alt>j'
-session-switch-to-terminal-left='<Alt>h'
-session-switch-to-terminal-right='<Alt>l'
-session-switch-to-terminal-up='<Alt>k'
+session-switch-to-terminal-down='<Primary><Alt>j'
+session-switch-to-terminal-left='<Primary><Alt>h'
+session-switch-to-terminal-right='<Primary><Alt>l'
+session-switch-to-terminal-up='<Primary><Alt>k'
 
 [profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
 background-transparency-percent=13
