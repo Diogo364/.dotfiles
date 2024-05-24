@@ -1,0 +1,9 @@
+.gitconfig
+.zshrc
+.p10k.zsh
+.oh-my-zsh
+.config/i3
+.config/i3blocks
+.config/i3status
+.config/nvim
+.config/tmux
