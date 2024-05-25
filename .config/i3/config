@@ -6,6 +6,7 @@ set $mod Mod4
 set $alt Mod1
 set $browser brave
 
+exec "xrandr --auto"
 exec "setxkbmap -layout us -variant intl"
 
 # set default desktop layout (default is tiling)
@@ -22,6 +23,7 @@ hide_edge_borders none
 bindsym $mod+u border none
 bindsym $mod+y border pixel 4
 bindsym $mod+n border normal
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -352,6 +354,8 @@ set_from_resource $term_color12    color12
 set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
+
+bindsym $mod+Shift+p exec i3hdmi-enabler
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
