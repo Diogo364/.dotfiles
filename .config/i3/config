@@ -49,21 +49,21 @@ bindsym $mod+z exec --no-startup-id morc_menu
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 #bindsym $mod+Ctrl+m exec $terminal -e 'alsamixer'
-exec --no-startup-id pulseaudio
-exec --no-startup-id pa-applet
-bindsym $mod+Ctrl+m exec pavucontrol
+#exec --no-startup-id pulseaudio
+#exec --no-startup-id pa-applet
+#bindsym $mod+Ctrl+m exec pavucontrol
+
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
 
 ################################################################################################
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
-
-# Caps and Nums Visual
-#bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-#bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $terminal -e 'bmenu'
@@ -356,7 +356,8 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	i3bar_command i3bar
-	status_command i3status
+	#status_command i3status
+    status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
 	position top
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'

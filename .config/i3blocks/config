@@ -29,29 +29,6 @@ command=$SCRIPT_DIR/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[keyindicator]
-command=$SCRIPT_DIR/keyindicator/keyindicator
-KEY=CAPS
-markup=pango
-interval=once
-signal=11
-
-[keyindicator]
-command=$SCRIPT_DIR/keyindicator/keyindicator
-KEY=NUM
-markup=pango
-interval=once
-signal=11
-
-[gpu-load]
-command=$SCRIPT_DIR/gpu-load/gpu-load
-label=GPU 
-interval=10
-#min_width=GPU 100% 100% 100% 100%
-#GPU_BRAND=NVIDIA // or AMD
-#T_WARN=70
-#T_CRIT=90
-#
 [cpu_usage]
 command=$SCRIPT_DIR/cpu_usage/cpu_usage
 label=CPU. 
@@ -64,7 +41,6 @@ command=$SCRIPT_DIR/memory/memory
 label=MEM. 
 interval=30
 
-
 [disk]
 command=$SCRIPT_DIR/disk/disk
 label=HOME 
@@ -75,10 +51,10 @@ command=$SCRIPT_DIR/battery/battery
 label=BAT. 
 interval=30
 
-[volume-pulseaudio]
-command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
+[volume-pipewire]
+command=$SCRIPT_DIR/volume-pipewire/volume-pipewire
 interval=once
-signal=10
+signal=1
 
 [time]
 command=$SCRIPT_DIR/time/time
