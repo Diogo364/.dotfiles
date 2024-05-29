@@ -4,6 +4,7 @@
 BASE_PACKAGES=$( cat "$BASE_PACKAGES" )
 COMMON_PACKAGES=$( cat "$COMMON_PACKAGES" )
 FLATPAK_PACKAGES=$( cat "$FLATPAK_PACKAGES" )
+MANJARO_PACKAGES=$( cat "$MANJARO_PACKAGES" )
 
 # Custom PACMAN Configuration
 PACCONF=/etc/pacman.conf
@@ -24,5 +25,6 @@ echo "Installing software"
 ## Install apt programs ##
 sudo pacman -S $BASE_PACKAGES 
 sudo pacman -S $COMMON_PACKAGES 
+sudo pacman -S $MANJARO_PACKAGES 
 
 bash ./github_instalations.sh
