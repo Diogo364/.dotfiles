@@ -69,8 +69,6 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $terminal -e 'bmenu'
-bindsym $mod+F2 exec $browser
-bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec $terminal -e 'mocp'
@@ -301,7 +299,7 @@ mode "$mode_launcher" {
         bindsym t exec i3-sensible-terminal
         bindsym s exec slack
         bindsym p exec "$pulse-secure"
-        bindsym f exec nautilus
+        bindsym f exec pcmanfm
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
