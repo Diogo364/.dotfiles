@@ -7,6 +7,7 @@ set $alt Mod1
 set $browser brave
 
 exec "xrandr --auto"
+exec i3enable-touchpad 
 exec_always "setxkbmap -layout us -variant intl"
 
 # set default desktop layout (default is tiling)
