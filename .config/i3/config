@@ -7,7 +7,7 @@ set $alt Mod1
 set $browser brave
 
 exec "xrandr --auto"
-exec "setxkbmap -layout us -variant intl"
+exec_always "setxkbmap -layout us -variant intl"
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
