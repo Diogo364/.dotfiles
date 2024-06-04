@@ -1,7 +1,10 @@
 #!/bin/bash
 
 HDMI_CONNECTED=$(xrandr | grep HDMI | cut -d ' ' -f 2) 
+HDMI_PORT=$(xrandr | grep HDMI | cut -d ' ' -f 1) 
 
 if [[ "$HDMI_CONNECTED" == 'connected' ]]; then
-    xrandr --output eDP-1 --off --output HDMI-1 --primary --mode 3440x1440 --pos 0x0 --rotate normal
+    xrandr --output eDP-1 --off --output $HDMI_PORT --primary --mode 3440x1440 --pos 0x0 --rotate normal
+else
+    xrandr --auto
 fi
