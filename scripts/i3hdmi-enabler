@@ -8,3 +8,5 @@ if [[ "$HDMI_CONNECTED" == 'connected' ]]; then
 else
     xrandr --auto
 fi
+
+feh --bg-scale $HOME/Pictures/wallpaper/current_wallpaper.jpg
