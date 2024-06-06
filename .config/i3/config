@@ -35,7 +35,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-set $terminal tilix
+set $terminal kitty
 bindsym $mod+Return exec $terminal
 
 # kill focused window
