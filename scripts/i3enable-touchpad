@@ -1,4 +1,4 @@
 #!/bin/bash
 
 TOUCHPAD_ID=$( xinput | grep -E -i '(\w.*touch\w*)' -o )
-xinput set-prop $TOUCHPAD_ID 'libinput Tapping Enabled' 1
+xinput set-prop "$TOUCHPAD_ID" 'libinput Tapping Enabled' 1
