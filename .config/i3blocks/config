@@ -1,64 +1,92 @@
-# i3blocks config file
-#
-# Please see man i3blocks for a complete reference!
-# The man page is also hosted at http://vivien.github.io/i3blocks
-#
-# List of valid properties:
-#
-# align
-# color
-# command
-# full_text
-# instance
-# interval
-# label
-# min_width
-# name
-# separator
-# separator_block_width
-# short_text
-# signal
-# urgent
-
-# Global properties
-#
-# The top properties below are applied to every block, but can be overridden.
-# Each block command defaults to the script name to avoid boilerplate.
-# Change $SCRIPT_DIR to the location of your scripts!
-command=$SCRIPT_DIR/$BLOCK_NAME
-separator_block_width=15
-markup=none
-
-[cpu_usage]
-command=$SCRIPT_DIR/cpu_usage/cpu_usage
-label=CPU. 
-interval=10
-min_width=CPU 100.00%
+align=center
 separator=false
+color=#f8f8f2
+separator_block_width=15
+markup=pango
 
-[memory]
-command=$SCRIPT_DIR/memory/memory
-label=MEM. 
-interval=30
-
-[disk]
-command=$SCRIPT_DIR/disk/disk
-label=HOME 
-interval=30
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
+interval=persist
+SUBSCRIBE=1
+USE_ALSA_NAME=1  
+AUDIO_HIGH_SYMBOL=<span color="#ff5555"> </span>
+AUDIO_MED_SYMBOL=<span color="#ff5555">  </span>
+AUDIO_LOW_SYMBOL=<span color="#ff5555">  </span>
+color=#ff5555
+border=#ff5555
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
 
 [battery]
 command=$SCRIPT_DIR/battery/battery
-label=BAT. 
 interval=30
+LABEL=  
+color=#ff5555
+border=#ff5555
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
 
-[volume-pipewire]
-command=$SCRIPT_DIR/volume-pipewire/volume-pipewire
-interval=once
-signal=1
+[wifi]
+command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
+instance=wlp11s0f3u1
+interval=5
+label=<span color="#ff79c6"> </span>
+border=#ff79c6
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
 
-[time]
-command=$SCRIPT_DIR/time/time
+[home]
+command=df -h /home | awk 'FNR==2 { gsub(/[A-Za-z]/, ""); printf "%i<span color=\"#50fa7b\">GiB</span>\n", $4 }'
+interval=3
+label=<span color="#50fa7b"> </span>
+border=#50fa7b
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
+
+[cpu_stats]
+command=$SCRIPT_DIR/cpu_usage/cpu_usage
+interval=2
+label=<span color="#ff5555"><b>󰻠 </b></span>
+border=#ff5555
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
+
+[memory]
+command=free --giga | awk 'FNR==2{ printf "%i<span color=\"#ff79c6\">GiB</span>\n", $7 }'
+interval=2
+label=<span color="#ff79c6"> </span>
+border=#ff79c6
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
+
+[time_manaus]
+command=TZ="America/Sao_Paulo" date '+%H : %M %Z' | awk '{ printf "%s<span color=\"#f1fa8c\">%s</span>%s<span color=\"#f1fa8c\"> %s</span>\n", $1, $2, $3, $4 }'
 interval=1
-#TZ_FILE=~/.tz
-STRFTIME_FORMAT=%Y-%m-%d %H:%M
+label=<span color="#f1fa8c"> </span>
+border=#f1fa8c
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
 
+[date]
+command=LC_ALL="en_US.UTF-8" date '+%Y %B %d %A' | awk '{ printf "%s/<span color=\"#ff5555\">%s/</span>%s<span color=\"#ff5555\"> %s</span>\n", $2, $3, $1, $4}'
+interval=60
+label=<span color="#ff5555"> </span>
+border=#ff5555
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
