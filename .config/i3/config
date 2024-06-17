@@ -35,7 +35,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-set $terminal kitty
+set $terminal alacritty
 bindsym $mod+Return exec $terminal
 
 # kill focused window
@@ -300,9 +300,7 @@ set $mode_launcher Launch:
 bindsym $mod+x mode "$mode_launcher"
 mode "$mode_launcher" {
         bindsym b exec $browser
-        bindsym t exec $terminal --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes
         bindsym s exec slack
-        bindsym p exec "$pulse-secure"
         bindsym f exec pcmanfm
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
