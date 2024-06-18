@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-fd -p $1 ~/.config | fzf --reverse | xargs less
+fd -p $1 ~/.dotfiles -t f -H | fzf --reverse | xargs bat
 
