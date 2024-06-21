@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 
-fd -p $1 ~/.dotfiles ~/.config -E .git -t f -H | fzf --reverse | xargs bat
+selected=`cat ~/.config/qconf/output_command.list | fzf`;
+
+if [[ -n $TMUX ]]; then
+    echo "Using TMUX multiplexer"
+    selected="tmux splitw -h $selected";
+fi
+
+fd -p $1 ~/.dotfiles ~/.config -E .git -t f -H | fzf --reverse | xargs $selected
 
