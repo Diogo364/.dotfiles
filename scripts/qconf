@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-selected=`cat ~/.config/qconf/output_command.list | fzf`;
-
-if [[ -n $TMUX ]]; then
-    echo "Using TMUX multiplexer"
-    selected="tmux splitw -h $selected";
+if [[ -z $1 ]]; then
+    read -p "Search Config: " doc_tag
+else
+    doc_tag=$1
 fi
 
-fd -p $1 ~/.dotfiles ~/.config -E .git -t f -H | fzf --reverse | xargs $selected
+selected=`cat ~/.config/qconf/output_command.list | fzf`;
+
+fd -p $doc_tag ~/.dotfiles ~/.config -E .git -t f -H | fzf --reverse | xargs $selected
 
