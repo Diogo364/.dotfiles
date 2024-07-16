@@ -5,10 +5,10 @@
 
 DEFAULT_VALUE='Create New Session'
 FIND_ROOT=~/Documents
-INPUT_PATH=$1
+INPUT_PATH="$1"
 
 if [[ $# -eq 1 ]]; then
-    selected_session=$1
+    selected_session=$INPUT_PATH
 else
     session_list="$(tmux list-sessions)\n$DEFAULT_VALUE"
     selected_name=$(\
@@ -21,14 +21,14 @@ fi
 
 if [[ $selected_name == $DEFAULT_VALUE ]]; then 
 
-    selected_session=$(find $FIND_ROOT  -maxdepth 3 -type d | fzf --reverse)
+    selected_session=$( realpath $(find $FIND_ROOT  -maxdepth 4 -type d | fzf --reverse))
 
     if [[ -z $selected_session ]]; then
         exit 0
     fi
 fi
 
- if ! [[ -z $INPUT_PATH ]] || [[ $selected_name == $DEFAULT_VALUE ]]; then
+ if  [[ ! -z $INPUT_PATH ]] || [[ $selected_name == $DEFAULT_VALUE ]]; then
     selected_name=$(basename "$selected_session" | tr . _)
 
     if ! tmux has-session -t=$selected_name 2> /dev/null; then
@@ -36,7 +36,7 @@ fi
         tmux new-session -ds $selected_name -c $selected_session
     fi
 fi
-echo $selected_name $selected_session
+
 if [[ -z $TMUX ]]; then
     tmux attach -t $selected_name
 else
