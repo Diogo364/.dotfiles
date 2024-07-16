@@ -3,6 +3,8 @@ LOCAL_BIN_PATH := ${HOME}/.local/bin
 SCRIPTS_PATH := ./scripts
 ALL_SYMLINKS := `cat "symlink.list"`
 CURPATH := `pwd`
+ENV_Z_FILE := ~/.zshenv
+PROFILE_CUSTOM_TAG := `grep "~/.profile-custom" ${ENV_Z_FILE}`
 
 load-tilix:
 	dconf load ${TILIX_DCONF} < ./tilix.dconf
@@ -26,3 +28,10 @@ create-config-symlinks:
 		rm -rf ${HOME}/$${file}; \
 		ln -s ${CURPATH}/$${file} ${HOME}/$${file}; \
 	done
+
+append-profile-file:
+	@if [ -z ${PROFILE_CUSTOM_TAG} ]; then \
+		echo "[ -f ~/.profile-custom ] && . ~/.profile-custom" >> ${ENV_Z_FILE}; \
+	fi
+	@echo "Updating ~/.profile-custom file"
+	cp .profile-custom ~/.profile-custom

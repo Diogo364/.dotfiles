@@ -1,0 +1,7 @@
+# My profiles' customizations
+
+alias tm=tmux-sessionizer
+alias browser=brave-browser
+alias dropbox='python $HOME/Documents/Personal/dropbox.py'
+alias hdu='du .[^.]*'
+alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes"

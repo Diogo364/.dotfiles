@@ -14,7 +14,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom Aliases
 alias hdu='du .[^.]*'
 alias tm='tmux-sessionizer'
-
+# alias browser=brave-browser
+# alias indt-browser=$browser --profile-directory="Profile 2"
+# alias moto-browser=$browser --profile-directory="Profile 1"
+# alias personal-browser=$browser --profile-directory="Default"
 # Custom Functions
 vscode-text() {
 	code -n /tmp/tmp.txt
