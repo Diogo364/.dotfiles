@@ -1,4 +1,6 @@
 # !/bin/bash
+# Inspired by Diolinux's bootstrap script 
+# https://github.com/Diolinux/Linux-Mint-19.x-PosInstall
 . ./utils.sh
 
 BASE_PACKAGES=$( get_formatted_packages "$BASE_PACKAGES" )

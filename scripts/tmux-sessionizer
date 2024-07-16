@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Inspired by The Primeagen's tmux-sessionizer
+# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
 DEFAULT_VALUE='Create New Session'
 FIND_ROOT=~/Documents
 INPUT_PATH=$1

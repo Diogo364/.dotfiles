@@ -1,6 +1,7 @@
 #!/bin/bash
 # /usr/bin/blurlock
 
+# From Manjaro I3
 # take screenshot
 import -window root /tmp/screenshot.png
 
