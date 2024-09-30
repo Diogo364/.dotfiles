@@ -4,9 +4,15 @@ HDMI_CONNECTED=$(xrandr | grep HDMI | cut -d ' ' -f 2)
 HDMI_PORT=$(xrandr | grep HDMI | cut -d ' ' -f 1) 
 
 if [[ "$HDMI_CONNECTED" == 'connected' ]]; then
-    xrandr --output eDP-1 --off --output $HDMI_PORT --primary --mode 3440x1440 --pos 0x0 --rotate normal
+    notify-send -u low "Connecting to HDMI: $HDMI_PORT"
+    xrandr \
+        --output DP-4 --mode 1920x1080 --pos 0x0 --rotate normal \
+        --output $HDMI_PORT --primary --mode 3440x1440 --pos 1920x0
 else
-    xrandr --auto
+    notify-send -u low "No HDMI found"
+    xrandr --auto; 
+    xrandr --output DP-4 --mode 1920x1080 --pos 0x0 --rotate normal --primary;
 fi
 
 feh --bg-scale $HOME/Pictures/wallpaper/current_wallpaper.jpg
+
