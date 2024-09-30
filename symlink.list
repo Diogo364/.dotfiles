@@ -7,3 +7,4 @@
 .config/i3status
 .config/nvim
 .config/tmux
+.config/zsh
