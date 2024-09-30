@@ -6,8 +6,9 @@
 DEFAULT_VALUE='Create New Session'
 FIND_ROOT=~/Documents
 INPUT_PATH="$1"
+COMMAND="$2"
 
-if [[ $# -eq 1 ]]; then
+if [[ $# > 0 ]]; then
     selected_session=$INPUT_PATH
 else
     session_list="$(tmux list-sessions)\n$DEFAULT_VALUE"
@@ -33,12 +34,9 @@ fi
 
     if ! tmux has-session -t=$selected_name 2> /dev/null; then
         # Create new detached tmux session
-        tmux new-session -ds $selected_name -c $selected_session
+        echo "Creating new session $selected_name" >&2
+        tmux new-session -ds $selected_name -c $selected_session $COMMAND
     fi
 fi
 
-if [[ -z $TMUX ]]; then
-    tmux attach -t $selected_name
-else
-    tmux switch-client -t $selected_name
-fi
+tmux-attach $selected_name
