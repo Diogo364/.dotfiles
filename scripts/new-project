@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Function to display help menu
+show_help() {
+    cat << EOF
+Usage: $0 [-r root_path] [-n project_name]
+
+Create a new project with the specified root path and project name.
+
+Options:
+  -r  Root path where the project will be created (optional).
+      If not provided, you'll be prompted to select it interactively.
+  -n  Name of the project (optional).
+      If not provided, you'll be prompted to input the project name.
+  -h  Show this help message.
+EOF
+}
+
+# Default values
+root_path=""
+project_name=""
+
+# Parse command-line arguments
+while getopts "r:n:h" opt; do
+    case ${opt} in
+        r)
+            root_path=$OPTARG
+            ;;
+        n)
+            project_name=$OPTARG
+            ;;
+        h)
+            show_help
+            exit 0
+            ;;
+        *)
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
+# Select root path if not provided
+if [ -z "$root_path" ]; then
+    echo "Select the root directory:" >&2
+    root_path=$(fd . -t d $HOME | fzf -i --scheme=path)
+    if [ -z "$root_path" ]; then
+        echo "Error: No root directory selected." >&2
+        exit 1
+    fi
+fi
+echo "Selected root: $root_path" >&2
+
+# Prompt for project name if not provided
+if [ -z "$project_name" ]; then
+    echo "Enter the project name: " >&2
+    read project_name
+    if [ -z "$project_name" ]; then
+        echo "Error: Project name cannot be empty." >&2
+        exit 1
+    fi
+fi
+
+complete_project_path="$root_path/$project_name"
+
+# Create project directory if it doesn't exist
+if [ ! -d "$complete_project_path" ]; then
+    echo "Creating new project @ $complete_project_path" >&2
+    mkdir -p "$complete_project_path"
+else
+    echo "Project already exists @ $complete_project_path" >&2
+fi
+
+echo "$complete_project_path"
+
