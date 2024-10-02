@@ -24,8 +24,23 @@ csv_pp(){
     sed 's/,/:,/g' $1 | column -t -s: | sed 's/ ,/,/g'
 }
 
-_verbose_notify () {
+_verbose_notify() {
     if [[ "${_ZSH_VERBOSE}" -eq 1 ]]; then
         notify-send -u normal "$1"
     fi
+}
+
+sendToLocalBin() {
+    s="$1"
+    target_dir=~/.local/bin/
+    if [[ ! -f "$s" ]]; then
+        echo "File $s do not exist">&2
+        return
+    fi
+
+    target_file="$target_dir/$s"
+
+    chmod +x "$s" && cp "$s" "$target_file"
+    echo "File created" >&2
+    echo "$target_file"
 }
