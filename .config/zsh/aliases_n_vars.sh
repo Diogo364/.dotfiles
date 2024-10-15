@@ -9,6 +9,7 @@ export DEVCONTAINER_NVIM_PORT=8008
 export TRASH=${HOME}/.local/share/Trash
 export DOTFILES_PATH=${HOME}/.dotfiles
 export EDITOR=nvim
+export LANG=en_US.UTF-8
 
 # Aliases
 ## Browser
