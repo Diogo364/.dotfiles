@@ -55,3 +55,22 @@ alias conf='tm ~/.config'
 alias tnn='tm ~/.config/nvim nvim'
 alias tqconf='tmux new "qconf nvim"'
 
+#Git
+alias lg='lazygit'
+alias gs='git status'
+alias gsn='git status -uno'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias ghbr='\
+    gh repo list --json nameWithOwner -q ".[].nameWithOwner" | \
+    fzf \
+        --ansi \
+        --preview "GH_FORCE_TTY=1 gh repo view {1}" \
+        --preview-window hidden \
+        --bind "enter:become(gh repo view {} --web | glow)" \
+        --bind="ctrl-v:toggle-preview" \
+    '
+
+
+
