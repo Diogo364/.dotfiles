@@ -10,6 +10,7 @@ export TRASH=${HOME}/.local/share/Trash
 export DOTFILES_PATH=${HOME}/.dotfiles
 export EDITOR=nvim
 export LANG=en_US.UTF-8
+export MANPATH="/usr/local/man:$MANPATH"
 
 # Aliases
 ## Browser
