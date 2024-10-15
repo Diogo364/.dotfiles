@@ -23,6 +23,7 @@ alias l='ls -CF'
 alias rz='source ~/.zshrc'
 alias hdu='du .[^.]*'
 alias dfstorage='df -h | rg "/$"'
+alias c="xclip -selection clipboard"
 alias cclip="xclip -selection clipboard"
 alias oclip="xclip -o"
 alias dropbox='python $HOME/Documents/Personal/dropbox.py'
