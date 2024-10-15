@@ -8,6 +8,7 @@ export NVIM_CONFIG_PATH="${HOME}/.config/nvim"
 export DEVCONTAINER_NVIM_PORT=8008
 export TRASH=${HOME}/.local/share/Trash
 export DOTFILES_PATH=${HOME}/.dotfiles
+export EDITOR=nvim
 
 # Aliases
 ## Browser
