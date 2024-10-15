@@ -46,3 +46,19 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+
+# CTRL-A - Paste the selected alias into the command line
+fzf-alias-widget() {
+  local selected
+  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob nobash_rematch 2> /dev/null
+  selected="$(alias |
+      FZF_DEFAULT_OPTS=$(__fzf_defaults "" "--prompt='Alias > ' --bind=ctrl-a:toggle-sort") \
+      FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd) | cut -d "=" -f1)"
+  LBUFFER="$selected"
+  zle reset-prompt
+}
+
+zle     -N            fzf-alias-widget
+bindkey -M emacs '^A' fzf-alias-widget
+bindkey -M vicmd '^A' fzf-alias-widget
+bindkey -M viins '^A' fzf-alias-widget
