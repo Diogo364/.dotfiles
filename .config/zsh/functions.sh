@@ -31,16 +31,16 @@ _verbose_notify() {
 }
 
 sendToLocalBin() {
-    s="$1"
-    target_dir=~/.local/bin/
-    if [[ ! -f "$s" ]]; then
-        echo "File $s do not exist">&2
+    in_file="$1"
+    if [[ ! -f "$in_file" ]]; then
+        echo "File $in_file do not exist">&2
         return
     fi
 
-    target_file="$target_dir/$s"
+    target_dir=~/.local/bin/
+    target_file="$target_dir/`basename "$in_file"`"
 
-    chmod +x "$s" && cp "$s" "$target_file"
+    chmod +x $in_file && cp "$in_file" "$target_file"
     echo "File created" >&2
     echo "$target_file"
 }
