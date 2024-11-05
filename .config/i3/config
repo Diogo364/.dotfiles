@@ -42,8 +42,6 @@ bindsym $mod+n border normal
 bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
-# launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
 
 # change focus
 bindsym $mod+h focus left
