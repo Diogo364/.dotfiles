@@ -1,26 +1,26 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 export _ZSH_VERBOSE=0
 
-# Initial Function Import
-source "${_ZSH_CONFIG}"/functions.sh
+autoload -Uz compinit
+compinit
 
-_curr_fn=$(basename $0)
-# Default Config
-for fn in `find -L $_ZSH_CONFIG -maxdepth 1 -type f`;
-do 
-    if [[ "$_curr_fn" != $(basename $fn) ]]; then 
-        _verbose_notify "sourcing $fn"
-        source "${fn}"
-    fi
+# Source Order
+_source_order=(
+    ${_ZSH_CONFIG}/functions.sh
+    ${_ZSH_CONFIG}/*.sh
+    ${_ZSH_CONFIG}/custom/*
+)
+
+_already_sourced=(
+    "${_ZSH_CONFIG}/$(basename $0)"
+)
+
+source_file() {
+    [[ $_ZSH_VERBOSE -eq 1 ]] && echo "sourcing $1"
+    echo -e "${_already_sourced[@]}" | grep -q "$1" || source "$1" && _already_sourced+="$1"
+}
+
+for fn in "${_source_order[@]}"; do
+    source_file $fn
 done
-
-# Custom Config
-for fn in `find -L $_ZSH_CONFIG -mindepth 2 -type f`;
-do 
-    if [[ "$_curr_fn" != $(basename $fn) ]]; then 
-        _verbose_notify "sourcing $fn"
-        source "${fn}"
-    fi
-done
-
