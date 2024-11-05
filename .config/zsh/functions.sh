@@ -58,3 +58,8 @@ yank() {
     echo "yanked -> $out" >&2
     echo "$out" | xclip -selection clipboard
 }
+
+cleanDocker() {
+    docker image prune
+    docker builder prune
+}
