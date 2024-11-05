@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -8,8 +8,6 @@ if ! [[ -s $(command -v fzf) ]]; then
     _verbose_notify "binary fzf not found"
     return
 fi
-
-source ~/fzf-git.sh/fzf-git.sh
 
 # -- Use fd instead of fzf --
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
@@ -62,3 +60,4 @@ zle     -N            fzf-alias-widget
 bindkey -M emacs '^A' fzf-alias-widget
 bindkey -M vicmd '^A' fzf-alias-widget
 bindkey -M viins '^A' fzf-alias-widget
+
