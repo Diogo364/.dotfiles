@@ -3,40 +3,44 @@
 # Inspired by The Primeagen's tmux-sessionizer
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-DEFAULT_VALUE='Create New Session'
+CREATE_NEW_VALUE='Create New Session'
+session_list=$(tmux list-sessions)
+session_list+="\n$CREATE_NEW_VALUE"
+
 FIND_ROOT=~/Documents
-INPUT_PATH="$1"
-COMMAND="$2"
 
 if [[ $# > 0 ]]; then
-    selected_session=$INPUT_PATH
+	selected_session="$1"
+	command="$2"
 else
-    session_list="$(tmux list-sessions)\n$DEFAULT_VALUE"
-    selected_name=$(\
-        echo -e "$session_list" | \
-        fzf --reverse | \
-        sed '/^$/d' | \
-        cut -d':' -f1 
-    )
+	selected_name=$(
+		echo -e "$session_list" |
+			fzf --reverse |
+			sed '/^$/d' |
+			cut -d':' -f1
+	)
+
+	if [[ $selected_name != $CREATE_NEW_VALUE ]]; then
+		tmux-attach "$selected_name"
+		exit 0
+	fi
+
+	selected_session=$(realpath "$(find "$FIND_ROOT" -maxdepth 4 -type d | fzf --reverse)")
 fi
 
-if [[ $selected_name == $DEFAULT_VALUE ]]; then 
+echo $selected_session
 
-    selected_session=$( realpath $(find $FIND_ROOT  -maxdepth 4 -type d | fzf --reverse))
-
-    if [[ -z $selected_session ]]; then
-        exit 0
-    fi
+if [[ -z $selected_session ]]; then
+	>&2 echo "E: Could not resolve session"
+	exit 1
 fi
 
- if  [[ ! -z $INPUT_PATH ]] || [[ $selected_name == $DEFAULT_VALUE ]]; then
-    selected_name=$(basename "$selected_session" | tr . _)
+selected_name=$(basename "$selected_session" | tr . _)
 
-    if ! tmux has-session -t=$selected_name 2> /dev/null; then
-        # Create new detached tmux session
-        echo "Creating new session $selected_name" >&2
-        tmux new-session -ds $selected_name -c $selected_session $COMMAND
-    fi
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+	# Create new detached tmux session
+	>&2 echo "Creating new session $selected_name"
+	tmux new-session -ds "$selected_name" -c "$selected_session" $command
 fi
 
-tmux-attach $selected_name
+tmux-attach "$selected_name"
