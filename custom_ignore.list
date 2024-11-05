@@ -2,6 +2,7 @@
 autostart/
 bat/
 BraveSoftware/
+google-chrome/
 .cache/
 cef_user_data/
 Code/
@@ -26,6 +27,8 @@ gtk-4.0/
 ibus/
 iterative/
 .jukit/
+.venv/
+__pycache__/
 libreoffice/
 matplotlib/
 menus/
@@ -60,3 +63,10 @@ user-dirs.locale
 xdg-terminals.list
 zoom.conf
 zoomus.conf
+
+#White list
+!**/data/**
+!*.csv
+!*.yaml
+!*.yml
+!.env*
