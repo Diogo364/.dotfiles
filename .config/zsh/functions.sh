@@ -44,3 +44,17 @@ sendToLocalBin() {
     echo "File created" >&2
     echo "$target_file"
 }
+
+yank() {
+    if [[ $# -eq 0 ]]; then
+        _cmd="pwd"
+    elif [[ $# -eq 1 && ( -d "$1" || -f "$1" ) ]]; then
+        _cmd="realpath $1"
+    else
+        _cmd="$@" 
+    fi
+    out=$(eval "$_cmd")
+    echo "Running cmd $_cmd" >&2
+    echo "yanked -> $out" >&2
+    echo "$out" | xclip -selection clipboard
+}
