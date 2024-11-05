@@ -6,6 +6,6 @@ if ! [[ -s $(command -v zoxide) ]]; then
 fi
 
 eval "$(zoxide init zsh)"
-alias cd="z"
+# alias cd="z"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
