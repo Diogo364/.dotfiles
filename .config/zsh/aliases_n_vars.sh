@@ -39,11 +39,16 @@ alias python3=python
 alias pip3=pip
 
 ## Neovim
+## My-nvim
 alias n='nvim'
 alias dnvim="nvim --server localhost:${DEVCONTAINER_NVIM_PORT} --remote-ui"
 alias tmpnvim='nvim /tmp/something.txt'
 alias nzsh='nvim ~/.zshrc'
 alias nn='nvim ~/.config/nvim'
+
+## lean-nvim
+alias lvim='NVIM_APPNAME=lean-nvim nvim'
+alias nl='NVIM_APPNAME=lean-nvim nvim ~/.config/lean-nvim'
 
 # tmux aliases
 alias t='tmux'
