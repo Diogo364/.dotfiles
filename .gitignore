@@ -1,3 +1,4 @@
 .config/tmux/plugins/**
 kitty-themes
 .config/zsh/workstuff.sh
+.config/autorandr/*/**
