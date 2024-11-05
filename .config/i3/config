@@ -42,7 +42,6 @@ bindsym $mod+n border normal
 bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -99,6 +98,8 @@ bindsym $mod+a focus parent
 
 # focus the child container
 bindsym $mod+u focus child
+
+bindsym $mod+slash exec i3shortcuts
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
