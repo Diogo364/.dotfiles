@@ -28,6 +28,7 @@ _fzf_compgen_dir() {
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+export FZF_TMUX_OPTS="--tmux=center,80%"
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
@@ -38,9 +39,10 @@ _fzf_comprun() {
 
   case "$command" in
     cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    alias)        alias | sort -fr | fzf --layout=reverse-list                  "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'" "$@" ;;
+    ssh)          fzf --preview 'dig {}' "$@" ;;
+    alias)        alias | sort -fr | fzf --layout=reverse-list "$@" ;;
+    tmux*)        tmux ls -F '#{session_name}' | sort -fr | fzf --layout=reverse-list "$@" ;;
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
@@ -49,9 +51,9 @@ _fzf_comprun() {
 fzf-alias-widget() {
   local selected
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob nobash_rematch 2> /dev/null
-  selected="$(alias |
-      FZF_DEFAULT_OPTS=$(__fzf_defaults "" "--prompt='Alias > ' --bind=ctrl-a:toggle-sort") \
-      FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd) | cut -d "=" -f1)"
+  selected="$(alias | 
+      fzf --prompt='Alias > ' | 
+      cut -d '=' -f1)"
   LBUFFER="$selected"
   zle reset-prompt
 }
@@ -60,4 +62,24 @@ zle     -N            fzf-alias-widget
 bindkey -M emacs '^A' fzf-alias-widget
 bindkey -M vicmd '^A' fzf-alias-widget
 bindkey -M viins '^A' fzf-alias-widget
+
+
+# CTRL-? - Paste the selected alias into the command line
+fzf-keybindings-widget() {
+  local selected
+  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob nobash_rematch 2> /dev/null
+  
+  selected="$(bindkey |
+      fzf --prompt='bindkey > ' |
+      rev |
+      cut -d ' ' -f 1 |
+      rev)"
+  LBUFFER="$selected"
+  zle reset-prompt
+}
+
+zle     -N            fzf-keybindings-widget
+bindkey -M emacs '^_' fzf-keybindings-widget
+bindkey -M vicmd '^_' fzf-keybindings-widget
+bindkey -M viins '^_' fzf-keybindings-widget
 
