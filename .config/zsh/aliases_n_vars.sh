@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 
-# ENV VARS
-export SHELL=/bin/zsh
-export XDG_CONFIG_HOME=${HOME}/.config
-export CONFIG_PATH=${XDG_CONFIG_HOME}
-export NVIM_CONFIG_PATH="${HOME}/.config/nvim"
-export DEVCONTAINER_NVIM_PORT=8008
-export TRASH=${HOME}/.local/share/Trash
-export DOTFILES_PATH=${HOME}/.dotfiles
-export EDITOR=nvim
-export LANG=en_US.UTF-8
-export MANPATH="/usr/local/man:$MANPATH"
 
 # Aliases
 ## Browser
@@ -44,11 +33,11 @@ alias n='nvim'
 alias dnvim="nvim --server localhost:${DEVCONTAINER_NVIM_PORT} --remote-ui"
 alias tmpnvim='nvim /tmp/something.txt'
 alias nzsh='nvim ~/.zshrc'
-alias nn='nvim ~/.config/nvim'
+alias nn="nvim ${NVIM_CONFIG_PATH}"
 
 ## lean-nvim
 alias lvim='NVIM_APPNAME=lean-nvim nvim'
-alias nl='NVIM_APPNAME=lean-nvim nvim ~/.config/lean-nvim'
+alias nl="NVIM_APPNAME=lean-nvim nvim ${CONFIG_PATH}/lean-nvim"
 
 # tmux aliases
 alias t='tmux'
@@ -56,9 +45,9 @@ alias ta='tmux attach'
 alias tc='clear; tmux clear-history; clear'
 alias tm='tmux-sessionizer'
 alias tmnew='tmux-sessionizer $(new-project)'
-alias dotf='tm ~/.dotfiles'
-alias conf='tm ~/.config'
-alias tnn='tm ~/.config/nvim nvim'
+alias dotf="tm ${DOTFILES_PATH}"
+alias conf="tm ${CONFIG_PATH}"
+alias tnn="tm ${NVIM_CONFIG_PATH} nvim"
 alias tqconf='tmux new "qconf nvim"'
 
 #Git
@@ -77,6 +66,3 @@ alias ghbr='\
         --bind "enter:become(gh repo view {} --web | glow)" \
         --bind="ctrl-v:toggle-preview" \
     '
-
-
-
