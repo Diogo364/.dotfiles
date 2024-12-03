@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Paths
+SCREENSHOT_PATH="/tmp/screen.png"
+TESSERACT_OUT_PATH="/tmp/tesseract-out.txt"
+
+# Commands
+SCREENSHOT_CMD="maim -u --select ${SCREENSHOT_PATH}"
+CLIPBOARD_CMD="yank"
+
+# Function: Display Help
+function show_help() {
+	echo "Usage: ${0##*/} [OPTION]"
+	echo "Take a screenshot, perform OCR with Tesseract, and copy the text to the clipboard."
+	echo
+	echo "Options:"
+	echo "  -h, --help      Show this help message and exit."
+	echo
+	echo "Requirements:"
+	echo "  - maim          For taking screenshots."
+	echo "  - tesseract     For OCR processing."
+	echo "  - yank          For clipboard management."
+}
+
+# Main script logic
+function main() {
+	# Take screenshot
+	if ! $SCREENSHOT_CMD; then
+		notify-send "Error" "Failed to take a screenshot."
+		exit 1
+	fi
+
+	# Perform OCR with Tesseract
+	text=$(tesseract -c page_separator="" "${SCREENSHOT_PATH}" stdout 2>/dev/null)
+	if [[ $? -ne 0 ]]; then
+		notify-send "Error" "Tesseract OCR failed."
+		exit 1
+	fi
+
+	# Notify user of OCR result
+	notify-send "Screenshot OCR" "${text}"
+
+	# Copy text to clipboard
+	echo -n "${text}" | $CLIPBOARD_CMD
+	if [[ $? -ne 0 ]]; then
+		notify-send "Error" "Failed to copy text to clipboard."
+		exit 1
+	fi
+}
+
+# Handle arguments
+case "$1" in
+-h | --help)
+	show_help
+	exit 0
+	;;
+*)
+	main
+	;;
+esac
