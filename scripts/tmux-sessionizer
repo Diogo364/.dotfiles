@@ -1,13 +1,28 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
+set -e
 # Inspired by The Primeagen's tmux-sessionizer
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
 CREATE_NEW_VALUE='Create New Session'
-session_list=$(tmux list-sessions)
-session_list+="\n$CREATE_NEW_VALUE"
 
-FIND_ROOT=~/Documents
+tmux ls 2>/dev/null && session_list="$(
+	tmux ls -F '#{?session_attached,, #{t/p:session_last_attached}: #{session_name}}' |
+		sort -r |
+		sed '/^$/d'
+)\n"
+
+session_list+="$CREATE_NEW_VALUE"
+
+FIND_ROOT=(
+	~/Documents
+	~/.config
+	~/.dotfiles
+	~/Documents/workstuff/QA_Tests
+	~/Documents/workstuff/Databases
+	~/Documents/workstuff/aiqa
+	~/Documents/myProjects
+)
 
 if [[ $# > 0 ]]; then
 	selected_session="$1"
@@ -15,31 +30,36 @@ if [[ $# > 0 ]]; then
 else
 	selected_name=$(
 		echo -e "$session_list" |
-			fzf --reverse |
-			sed '/^$/d' |
-			cut -d':' -f1
+			fzf -d ': ' \
+				--reverse \
+				--preview 'if [[ -n {2} ]]; then tmux captur -ep -t {2}; fi' \
+				--header 'tmux-sessionizer' ${FZF_TMUX_OPTS} |
+			awk -v create_value="$CREATE_NEW_VALUE" \
+				-F ': ' \
+				'{print ($0 != create_value)? $2 : $0}'
 	)
 
-	if [[ $selected_name != $CREATE_NEW_VALUE ]]; then
-		tmux-attach "$selected_name"
-		exit 0
-	fi
+	[[ -z $selected_name ]] && exit 1
 
-	selected_session=$(realpath "$(find "$FIND_ROOT" -maxdepth 4 -type d | fzf --reverse)")
+	[[ $selected_name != $CREATE_NEW_VALUE ]] && tmux-attach "$selected_name" && exit 0
+
+	selected_session=$(
+		realpath "$(
+			fd -t d \
+				--maxdepth 1 \
+				--full-path "$FIND_ROOT[@]" |
+				fzf --reverse \
+					--header='Create Session' $FZF_TMUX_OPTS
+		)"
+	)
 fi
 
-echo $selected_session
-
-if [[ -z $selected_session ]]; then
-	>&2 echo "E: Could not resolve session"
-	exit 1
-fi
+[[ -z $selected_session ]] && exit 1
 
 selected_name=$(basename "$selected_session" | tr . _)
 
-if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+if ! $(tmux has-session -t="$selected_name" 2>/dev/null); then
 	# Create new detached tmux session
-	>&2 echo "Creating new session $selected_name"
 	tmux new-session -ds "$selected_name" -c "$selected_session" $command
 fi
 
