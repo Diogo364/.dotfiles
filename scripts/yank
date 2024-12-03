@@ -1,0 +1,134 @@
+#!/bin/bash
+
+set -e
+
+NOTIFICATION_HEADER="Clipboard History"
+CLIPBOARD_HISTFILE="${CLIPBOARD_HISTFILE:-/tmp/cliphist}"
+CLIPBOARD_HISTFILE_SIZE="${CLIPBOARD_HISTFILE_SIZE:-100}"
+NEWLINE_TOKEN="${NEWLINE_TOKEN:-<NEWLINE>}"
+
+show_help() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS] [COMMAND]
+
+Clipboard Manager Script to interact with your clipboard history.
+
+OPTIONS:
+  -s    Select from clipboard history using rofi, and copy the selection to clipboard.
+  -a    Add the primary selection to the clipboard and save it in the clipboard history file.
+  -c    Execute a shell command, copy the output to clipboard, and add it to the history.
+  -p    Copy the absolute path of the given file/directory (or current directory if none specified) to clipboard and save it to the history.
+  -x    Clear the clipboard history after confirmation.
+  -h    Show this help message.
+
+ENVIRONMENT VARIABLES:
+  CLIPBOARD_HISTFILE  Path to the clipboard history file. Default is /tmp/cliphist.
+  NEWLINE_TOKEN       Token used to represent newlines in the history file. Default is <NEWLINE>.
+
+NOTES:
+  - Ensure that required tools (e.g., xclip, rofi) are installed and available in your PATH.
+  - This script manages clipboard history, allowing for quick reuse and organization of frequently used text.
+
+EOF
+}
+
+check_dependencies() {
+    for cmd in xclip rofi notify-send; do
+        if ! command -v "$cmd" &>/dev/null; then
+            echo "Error: Required command '$cmd' is not installed." >&2
+            exit 1
+        fi
+    done
+}
+
+validate_history_file() {
+    if [ ! -f "$CLIPBOARD_HISTFILE" ]; then
+        notify-send "${NOTIFICATION_HEADER}" "Creating Clipboard History @ $CLIPBOARD_HISTFILE"
+        touch "$CLIPBOARD_HISTFILE"
+    fi
+    # truncated_file=$(tail -n $CLIPBOARD_HISTFILE_SIZE "$CLIPBOARD_HISTFILE") 
+    # echo "$truncated_file" > "$CLIPBOARD_HISTFILE"
+}
+
+error_exit() {
+    echo "Error: $1" >&2
+    show_help
+    exit 1
+}
+
+highlight() {
+    clip=$(xclip -o -selection primary | xclip -i -f -selection clipboard 2>/dev/null)
+}
+
+output() {
+    clip=$(xclip -i -f -selection clipboard 2>/dev/null)
+}
+
+write() {
+    validate_history_file
+    [ -z "$clip" ] && exit 0
+    multiline=$(echo "$clip" | sed ':a;N;$!ba;s/\n/'"$NEWLINE_TOKEN"'/g')
+    grep -Fxq "$multiline" "$CLIPBOARD_HISTFILE" || echo "$multiline" >>"$CLIPBOARD_HISTFILE"
+}
+
+sel() {
+    if [[ ! -s "$CLIPBOARD_HISTFILE" || $(wc -l $CLIPBOARD_HISTFILE) -eq 0 ]]; then
+        notify-send "${NOTIFICATION_HEADER}" "Clipboard history is empty."
+        exit 0
+    fi
+    selection=$(tac "$CLIPBOARD_HISTFILE" | rofi -dmenu -p "Clipboard history")
+    [ -n "$selection" ] && echo "$selection" | sed "s/$NEWLINE_TOKEN/\n/g" | xclip -i -selection clipboard
+}
+
+cmd() {
+    clip=$(eval "$@")
+    echo "$clip" | xclip -selection clipboard 2>/dev/null
+}
+
+clear() {
+    answer=$(echo -en "Yes\nNo" | rofi -dmenu -p "Confirm Clipboard History Deletion")
+    [[ "$answer" != "Yes" ]] && exit 1
+    notify-send "${NOTIFICATION_HEADER}" "Clipboard History Deleted" && rm $CLIPBOARD_HISTFILE
+}
+
+# Parse Gommand-line arguments
+while getopts ":sacpxh-:" opt; do
+    case ${opt} in
+    s)
+        sel
+        exit 0
+        ;;
+    a)
+        highlight && write
+        exit 0
+        ;;
+    c)
+        shift 1
+        cmd "$@" && write
+        exit 0
+        ;;
+    p)
+        shift 1
+        if [[ -z "$1" ]]; then
+            _cmd="pwd"
+        else
+            _cmd="realpath $1"
+        fi
+        cmd "$_cmd" && write
+        exit 0
+        ;;
+    x)
+        clear
+        exit 0
+        ;;
+    h)
+        show_help
+        exit 1
+        ;;
+    *)
+        error_exit "Invalid option: -$OPTARG"
+        ;;
+    esac
+done
+
+output && write
