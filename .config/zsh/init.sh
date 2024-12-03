@@ -1,19 +1,20 @@
 #!/usr/bin/env zsh
 
-export _ZSH_VERBOSE=0
+export _ZSH_VERBOSE=${_ZSH_VERBOSE-0}
 
 autoload -Uz compinit
 compinit
+export fpath=("${ZDOTDIR}/functions" $fpath)
+autoload -Uz "${ZDOTDIR}"/functions/*
 
 # Source Order
 _source_order=(
-    ${_ZSH_CONFIG}/functions.sh
-    ${_ZSH_CONFIG}/*.sh
-    ${_ZSH_CONFIG}/custom/*
+	${ZDOTDIR}/*.sh
+	${ZDOTDIR}/custom/*
 )
 
 _already_sourced=(
-    "${_ZSH_CONFIG}/$(basename $0)"
+	"${ZDOTDIR}/$(basename $0)"
 )
 
 source_file() {

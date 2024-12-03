@@ -1,0 +1,8 @@
+#!/bin/bash
+
+_PLUGIN_REPO="$1"
+CUSTOM_ZSH_PLUGIN="${ZSH_PLUGINS}/$(basename ${_PLUGIN_REPO%.*})"
+
+[[ -d "$CUSTOM_ZSH_PLUGIN" ]] || git clone ${_PLUGIN_REPO} "${CUSTOM_ZSH_PLUGIN}" 2>/dev/null
+
+echo "${CUSTOM_ZSH_PLUGIN}"

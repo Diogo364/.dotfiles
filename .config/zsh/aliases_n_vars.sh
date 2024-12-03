@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+ZSHRC="${ZDOTDIR}/.zshrc"
 
 # Aliases
 ## Browser
@@ -9,7 +10,7 @@ alias browser=brave-browser
 # alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias rz='source ~/.zshrc'
+alias rz="source ${ZSHRC}"
 alias hdu='du .[^.]*'
 alias dfstorage='df -h | rg "/$"'
 alias oclip="xclip -o"
@@ -32,7 +33,7 @@ alias pip3=pip
 alias n='nvim'
 alias dnvim="nvim --server localhost:${DEVCONTAINER_NVIM_PORT} --remote-ui"
 alias tmpnvim='nvim /tmp/something.txt'
-alias nzsh='nvim ~/.zshrc'
+alias nzsh="nvim ${ZSHRC}"
 alias nn="nvim ${NVIM_CONFIG_PATH}"
 
 ## lean-nvim

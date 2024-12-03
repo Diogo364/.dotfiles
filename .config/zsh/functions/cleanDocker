@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+echo "Clean Docker"
+printColumn '-'
+
+echo "docker image prune"
+docker image prune
+
+printColumn '-'
+echo "docker builder prune"
+docker builder prune

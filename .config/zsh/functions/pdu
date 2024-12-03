@@ -1,0 +1,3 @@
+#!/bin/bash
+
+parallel "du -sh {}" ::: "$(ls -A)" | sort -nr | grep -P '^\d+(,\d+)?G'

@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+fd -t f -p $1 ~/.config | fzf --reverse | xargs bat
+

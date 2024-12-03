@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+in_file="$1"
+[[ -f "$in_file" ]] || echo "File $in_file do not exist" >&2 && return
+
+target_dir=~/.local/bin/
+target_file="$target_dir/$(basename "$in_file")"
+
+chmod +x $in_file && cp "$in_file" "$target_file"
+echo "File created" >&2
+echo "$target_file"

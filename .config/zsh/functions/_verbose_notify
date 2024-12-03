@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+[[ "${_ZSH_VERBOSE}" -eq 1 ]] && notify-send -u normal "$1"
