@@ -2,8 +2,6 @@
 
 export _ZSH_VERBOSE=${_ZSH_VERBOSE-0}
 
-autoload -Uz compinit
-compinit
 export fpath=("${ZDOTDIR}/functions" $fpath)
 autoload -Uz "${ZDOTDIR}"/functions/*
 
@@ -18,10 +16,10 @@ _already_sourced=(
 )
 
 source_file() {
-    [[ $_ZSH_VERBOSE -eq 1 ]] && echo "sourcing $1"
-    echo -e "${_already_sourced[@]}" | grep -q "$1" || source "$1" && _already_sourced+="$1"
+	[[ $_ZSH_VERBOSE -eq 1 ]] && echo "sourcing $1"
+	echo -e "${_already_sourced[@]}" | grep -q "$1" || source "$1" && _already_sourced+="$1"
 }
 
 for fn in "${_source_order[@]}"; do
-    source_file $fn
+	source_file $fn
 done
