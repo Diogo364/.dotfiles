@@ -23,11 +23,11 @@ alias l='ls -CF'
 alias rz='source ~/.zshrc'
 alias hdu='du .[^.]*'
 alias dfstorage='df -h | rg "/$"'
-alias c="xclip -selection clipboard"
-alias cclip="xclip -selection clipboard"
 alias oclip="xclip -o"
 alias yk="yank"
 alias dropbox='python $HOME/Documents/Personal/dropbox.py'
+alias ykp="yank -p"
+alias yks="yank -s"
 alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes"
 alias nconf="qconf nvim"
 alias bconf="qconf bat"
