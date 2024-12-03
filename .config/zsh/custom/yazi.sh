@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-if ! [[ -s $(command -v yazi) ]]; then
-    _verbose_notify "binary yazi not found"
-    return
-fi
+[[ -s $(command -v yazi) ]] || $(_verbose_notify "binary yazi not found" && return)
 
 # Yazi wrapper
 function yy() {
