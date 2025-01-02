@@ -1,0 +1,13 @@
+theme=dark
+
+*darkbluetrans: #313244
+*darkblue:      #B4BEFE
+*lightblue:     #EBA0AC
+*urgentred:     #F38BA8
+*white:         #CDD6F4
+*black:         #1E1E2E
+*purple:        #6870a1
+*darkgrey:      #383C4A
+*grey:          #B0B5BD
+*mediumgrey:    #8B8B8B
+*yellowbrown:   #E1B700
