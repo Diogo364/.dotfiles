@@ -1,7 +1,19 @@
 #!/bin/bash
 [[ $(cat /proc/1/comm) == "systemd" ]] && logind=systemctl || logind=loginctl
 
-MENU="rofi -p exit> -dmenu"
+if command -v wofi; then
+    MENU="wofi -p exit> -dmenu"
+elif command -v rofi; then
+    MENU="rofi -p exit> -dmenu"
+else
+    MENU="dmenu"
+fi
+
+if [[ -z $HYPRLAND_INSTANCE_SIGNATURE ]]; then
+    lock_cmd=blurlock
+else
+    lock_cmd=hyprlock
+fi
 
 options=(
     lock
@@ -15,13 +27,13 @@ selected=$(printf "%s\n" "${options[@]}" | $MENU)
 
 case "$selected" in
     lock)
-        blurlock
+        $lock_cmd
         ;;
     suspend)
-        blurlock && $logind suspend
+        $lock_cmd && $logind suspend
         ;;
     hibernate)
-        blurlock && $logind hibernate
+        $lock_cmd && $logind hibernate
         ;;
     reboot)
         $logind reboot
