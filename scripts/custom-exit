@@ -1,0 +1,37 @@
+#!/bin/bash
+[[ $(cat /proc/1/comm) == "systemd" ]] && logind=systemctl || logind=loginctl
+
+MENU="rofi -p exit> -dmenu"
+
+options=(
+    lock
+    suspend
+    hibernate
+    reboot
+    shutdown
+)
+
+selected=$(printf "%s\n" "${options[@]}" | $MENU)
+
+case "$selected" in
+    lock)
+        blurlock
+        ;;
+    suspend)
+        blurlock && $logind suspend
+        ;;
+    hibernate)
+        blurlock && $logind hibernate
+        ;;
+    reboot)
+        $logind reboot
+        ;;
+    shutdown)
+        $logind poweroff
+        ;;
+    *)
+        notify-send "Custom Exit" "Invalid Argument" "Try again with: lock | suspend | hibernate | reboot | shutdown"
+        exit 2
+esac
+
+exit 0
