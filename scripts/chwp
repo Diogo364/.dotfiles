@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+WALLPAPER_PATH=$HOME/Pictures/wallpaper/current_wallpaper.jpg
+SET_WALLPAPER_COMMAND="feh --bg-scale ${WALLPAPER_PATH}"
+FIND_IMAGE_COMMAND="sxiv -t -o"
+SEARCH_ROOT=(
+    /usr/share/backgrounds
+    ~/Pictures/wallpaper
+)
+
+change-wallpaper(){
+    [[ -f "${WALLPAPER_PATH}" ]] && rm "${WALLPAPER_PATH}"
+    ln -s "$1" "${WALLPAPER_PATH}"
+    $SET_WALLPAPER_COMMAND
+}
+
+
+wallpaper=$(${FIND_IMAGE_COMMAND} "${SEARCH_ROOT[@]}")
+change-wallpaper "${wallpaper}"
+notify-send "Changing Wallpaper to ${wallpaper}"
