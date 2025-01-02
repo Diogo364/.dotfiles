@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This is my custom cd function that accepts filepath
+args="$1"
+
+[[ -f "$args" ]] && args=$(dirname "$args")
+
+chdir $args
+
