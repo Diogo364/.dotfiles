@@ -24,11 +24,12 @@ alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_contr
 alias nconf="qconf nvim"
 alias bconf="qconf bat"
 alias rconf="qconf -r nvim"
+alias pp='popd'
+alias ppd='popd'
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-
-# Python
-alias python3=python
-alias pip3=pip
 
 ## Neovim
 ## My-nvim
