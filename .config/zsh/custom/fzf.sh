@@ -2,7 +2,7 @@
 
 # Set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+source <(fzf --zsh)
 
 if ! [[ -s $(command -v fzf) ]]; then
     _verbose_notify "binary fzf not found"
