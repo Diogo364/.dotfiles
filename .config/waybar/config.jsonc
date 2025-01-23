@@ -1,10 +1,12 @@
 {
     // General Settings
     "layer": "top",
-    "margin-bottom": 0,
-    "margin-left": 0,
-    "margin-right": 0,    
-    "spacing": 0,
+    "reload_style_on_change": true,
+    "margin-bottom": 5,
+    "margin-left": 5,
+    "margin-right": 5,    
+    "margin-top": 5,    
+    "spacing": 10,
 
     // Load Modules
     "include": [
@@ -13,22 +15,21 @@
 
     // Modules Left
     "modules-left": [
-        "custom/appmenuicon",
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "hyprland/window"
     ],
 
     // Modules Center
     "modules-center": [
-        "hyprland/window"
     ],
 
     // Modules Right    
     "modules-right": [
-        "pulseaudio",
-        "bluetooth",
-        "battery", 
         "network",
         "group/hardware",
-        "clock"
+        "bluetooth",
+        "pulseaudio",
+        "clock",
+        "battery"
     ]
 }
