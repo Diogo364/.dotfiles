@@ -98,9 +98,7 @@ window#waybar.empty #window {
  * Hardware Group
  * ----------------------------------------------------- */
 
-#disk,
-#memory,
-#cpu {
+#hardware {
     color: @main-fg;
     background: @main-bg;
     border-radius: 5px;

@@ -32,31 +32,26 @@
     },
     // CPU
     "cpu": {
-        "format": "Cpu: {usage}% |"
+        "format": "Cpu: {usage}% | "
     },
     // Memory
     "memory": {
-        "format": "Mem: {used:0.2f} G |"
+        "format": "Mem: {used:0.2f}G | "
     },
     // HD space used
     "disk": {
         "interval": 30,
-        "format": "Disk: {specific_free:0.2f} G",
+        "format": "Disk: {specific_free:0.2f}G",
         "path": "/home",
         "unit": "GB"
     },
     // Group Hardware
     "group/hardware": {
         "orientation": "inherit",
-        "drawer": {
-            "transition-duration": 300,
-            "children-class": "not-memory",
-            "transition-left-to-right": false
-        },
         "modules": [
-            "disk",
             "cpu",
-            "memory"
+            "memory",
+            "disk"
         ]
     },
     // Network
