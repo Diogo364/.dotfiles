@@ -1,8 +1,7 @@
-from layouts import build_layout
-from libqtile import extension
+import os.path as osp
+
 from libqtile.config import Drag, Key, KeyChord
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
 from utils import CustomContext
 
 
@@ -211,17 +210,16 @@ def set_keybindings(custom_context: CustomContext):
             ),
             Key(
                 [mod, "shift"],
+                "p",
+                lazy.spawn(osp.join(custom_context.qtile_path, "autorun.sh")),
+                desc="Reload Configuration Script",
+            ),
+            Key(
+                [mod, "shift"],
                 "r",
                 lazy.reload_config(),
                 desc="Reload qtile config",
             ),
-            Key(
-                [mod, "shift", "control"],
-                "r",
-                lazy.restart(),
-                desc="Restart qtile config",
-            ),
-            Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown Qtile"),
             Key(
                 [mod],
                 "d",
@@ -263,7 +261,7 @@ def set_keybindings(custom_context: CustomContext):
                 [mod],
                 "Escape",
                 lazy.spawn("custom-exit"),
-                desc="Show Clipboard History in selection menu",
+                desc="Open exit menu",
             ),
             Key(
                 [mod],
@@ -280,6 +278,12 @@ def set_keybindings(custom_context: CustomContext):
             # Toggle between different layouts as defined below
             Key([mod], "m", lazy.next_layout(), desc="Toggle between layouts"),
             Key([mod, "shift"], "m", lazy.prev_layout(), desc="Toggle between layouts"),
+            Key(
+                [mod, "shift"],
+                "b",
+                lazy.spawn("rofi-bluetooth"),
+                desc="Rofi Interface for bluetooth connection",
+            ),
         ]
     )
 
@@ -314,19 +318,19 @@ def set_keybindings(custom_context: CustomContext):
             Key(
                 [],
                 "XF86AudioRaiseVolume",
-                lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-                desc="Raise Volume by 5%",
+                lazy.spawn(custom_context.apps_dict["raise_volume"]),
+                desc="Raise Volume",
             ),
             Key(
                 [],
                 "XF86AudioLowerVolume",
-                lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-                desc="Lower Volume by 5%",
+                lazy.spawn(custom_context.apps_dict["lower_volume"]),
+                desc="Lower Volume%",
             ),
             Key(
                 [],
                 "XF86AudioMute",
-                lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+                lazy.spawn(custom_context.apps_dict["mute_volume"]),
                 desc="Mute/Unmute Volume",
             ),
         ]
@@ -338,21 +342,71 @@ def set_keybindings(custom_context: CustomContext):
             Key(
                 [],
                 "XF86AudioPlay",
-                lazy.spawn("playerctl play-pause"),
-                desc="Toggle PlayPouse",
+                lazy.spawn(custom_context.apps_dict["play_pause_ctl"]),
+                desc="Toggle PlayPause",
             ),
             Key(
                 [],
                 "XF86AudioNext",
-                lazy.spawn("playerctl next"),
+                lazy.spawn(custom_context.apps_dict["next_song"]),
                 desc="Go to Next",
             ),
             Key(
                 [],
                 "XF86AudioPrev",
-                lazy.spawn("playerctl previous"),
+                lazy.spawn(custom_context.apps_dict["previous_song"]),
                 desc="Go to Previous",
             ),
+        ]
+    )
+
+    # Media Mode
+    keys.extend(
+        [
+            KeyChord(
+                [mod, "shift"],
+                "m",
+                [
+                    Key(
+                        [],
+                        "k",
+                        lazy.spawn(custom_context.apps_dict["raise_volume"]),
+                        desc="Raise Volume%",
+                    ),
+                    Key(
+                        [],
+                        "j",
+                        lazy.spawn(custom_context.apps_dict["lower_volume"]),
+                        desc="Lower Volume%",
+                    ),
+                    Key(
+                        [],
+                        "m",
+                        lazy.spawn(custom_context.apps_dict["mute_volume"]),
+                        desc="Mute/Unmute Volume",
+                    ),
+                    Key(
+                        [],
+                        "p",
+                        lazy.spawn(custom_context.apps_dict["play_pause_ctl"]),
+                        desc="Toggle PlayPouse",
+                    ),
+                    Key(
+                        [],
+                        "l",
+                        lazy.spawn(custom_context.apps_dict["next_song"]),
+                        desc="Go to Next",
+                    ),
+                    Key(
+                        [],
+                        "h",
+                        lazy.spawn(custom_context.apps_dict["previous_song"]),
+                        desc="Go to Previous",
+                    ),
+                ],
+                mode=True,
+                name="Music: Previous(h) Play/Pause(p) Next(l) // Volume: Increase(k) Decrease(k) Mute(m)",
+            )
         ]
     )
 

@@ -35,6 +35,12 @@ default_apps = dict(
     pritunl="pritunl-client-electron",
     calendar="gnome-calendar",
     kitty_ssh_specific='kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes',
+    raise_volume="pactl set-sink-volume @DEFAULT_SINK@ +2%",
+    lower_volume="pactl set-sink-volume @DEFAULT_SINK@ -2%",
+    mute_volume="pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    play_pause_ctl="playerctl play-pause",
+    next_song="playerctl next",
+    previous_song="playerctl previous",
 )
 
 
