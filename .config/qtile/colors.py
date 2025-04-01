@@ -1,7 +1,11 @@
+import json
+import os
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 import yaml
+
+PYWAL_COLORS_PATH = os.path.expanduser("~/.cache/wal/colors.json")
 
 
 @dataclass
@@ -26,4 +30,21 @@ def extract_colors_from_yaml(
     return {
         colorscheme_name: ColorScheme.from_list(colorscheme_element)
         for colorscheme_name, colorscheme_element in colorscheme_dict.items()
+    }
+
+
+def extract_colors_from_pywal() -> ColorScheme:
+    with open(PYWAL_COLORS_PATH, "r") as cf:
+        pywal_colors = json.load(cf)
+    return ColorScheme(
+        pywal_colors["special"]["background"],
+        pywal_colors["special"]["foreground"],
+        list(pywal_colors["colors"].values()),
+    )
+
+
+def get_all_colors(yaml_file, key: Optional[str] = None) -> Dict[str, ColorScheme]:
+    return {
+        "pywal": extract_colors_from_pywal(),
+        **extract_colors_from_yaml(yaml_file, key),
     }

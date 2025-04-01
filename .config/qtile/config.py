@@ -1,7 +1,7 @@
 import os.path as osp
 import subprocess
 
-from colors import extract_colors_from_yaml
+from colors import extract_colors_from_yaml, get_all_colors
 from groups import set_groups
 from keybindings import set_keybindings, set_mouse_shortcuts
 from layouts import set_floating, set_layouts
@@ -20,8 +20,8 @@ global_context = CustomContext(
     apps_dict=default_apps,
     qtile_path=osp.expanduser("~/.config/qtile"),
     assets_path=ASSETS_PATH,
-    colorschemes=extract_colors_from_yaml(colors_yaml_path, key="colorscheme"),
-    chosen_colorscheme="custom",
+    colorschemes=get_all_colors(colors_yaml_path, key="colorscheme"),
+    chosen_colorscheme="pywal",
     logger=logger,
 )
 
