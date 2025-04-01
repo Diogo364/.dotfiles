@@ -60,9 +60,17 @@ global_context.logger.debug(f"Setting Floating Rules")
 floating_layout = set_floating(global_context)
 
 
+
 # Always run
 @hook.subscribe.startup
 def start_config():
+    global global_context
+    global_context.logger.debug(f"Running autorun script")
+    subprocess.call([osp.join(global_context.qtile_path, "autorun.sh")])
+
+# Run Once
+@hook.subscribe.startup_once
+def start_config_once():
     global global_context
     global_context.logger.debug(f"Running autostart script")
     subprocess.call([osp.join(global_context.qtile_path, "autostart.sh")])
