@@ -114,7 +114,10 @@ def set_widgets(custom_context: CustomContext):
         widget.Spacer(length=8, **widget_defaults),
         widget.Volume(
             fmt="Vol: {}",
+            mute_format="Mute",
             get_volume_command="pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print $5}'",
+            check_mute_command="pactl get-sink-mute @DEFAULT_SINK@ | grep -o yes",
+            check_mute_string="yes",
             foreground=border_decorator_list[0].colour,
             decorations=[border_decorator_list[0]],
             **widget_defaults
