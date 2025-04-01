@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+set_menu() {
+    if command -v wofi; then
+        MENU="wofi -p exit> -dmenu"
+    elif command -v rofi; then
+        MENU="rofi -p exit> -dmenu"
+    else
+        MENU="dmenu"
+    fi
+}
+
+
+set_menu 
+
+selected="$@"
+
+if [[ -z $selected ]]; then
+    options=$(autorandr | awk '{print $1}')
+    selected=$(printf "%s\n" "${options[@]}" | $MENU)
+fi
+
+autorandr --change ${selected}
+qtile cmd-obj -o cmd -f restart
