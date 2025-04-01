@@ -1,49 +1,71 @@
 #!/bin/bash
 [[ $(cat /proc/1/comm) == "systemd" ]] && logind=systemctl || logind=loginctl
 
-if command -v wofi; then
-    MENU="wofi -p exit> -dmenu"
-elif command -v rofi; then
-    MENU="rofi -p exit> -dmenu"
-else
-    MENU="dmenu"
-fi
+set_menu() {
+    if command -v wofi; then
+        MENU="wofi -p exit> -dmenu"
+    elif command -v rofi; then
+        MENU="rofi -p exit> -dmenu"
+    else
+        MENU="dmenu"
+    fi
+}
 
-if [[ -z $HYPRLAND_INSTANCE_SIGNATURE ]]; then
-    lock_cmd=blurlock
-else
-    lock_cmd=hyprlock
-fi
+set_exit_command() {
+    if pgrep qtile > /dev/null; then
+        EXIT_COMMAND="qtile cmd-obj -o cmd -f shutdown"
+    fi
+}
+
+set_lock_command() {
+    if [[ -z $HYPRLAND_INSTANCE_SIGNATURE ]]; then
+        lock_cmd=blurlock
+    else
+        lock_cmd=hyprlock
+    fi
+}
 
 options=(
     lock
     suspend
     hibernate
+    logout
     reboot
     shutdown
 )
 
-selected=$(printf "%s\n" "${options[@]}" | $MENU)
+main() {
+    set_menu
+    set_exit_command 
+    set_lock_command 
 
-case "$selected" in
-    lock)
-        $lock_cmd
-        ;;
-    suspend)
-        $lock_cmd && $logind suspend
-        ;;
-    hibernate)
-        $lock_cmd && $logind hibernate
-        ;;
-    reboot)
-        $logind reboot
-        ;;
-    shutdown)
-        $logind poweroff
-        ;;
-    *)
-        notify-send "Custom Exit" "Invalid Argument" "Try again with: lock | suspend | hibernate | reboot | shutdown"
-        exit 2
-esac
+    selected=$(printf "%s\n" "${options[@]}" | $MENU)
 
-exit 0
+    case "$selected" in
+        lock)
+            $lock_cmd
+            ;;
+        suspend)
+            $lock_cmd && $logind suspend
+            ;;
+        hibernate)
+            $lock_cmd && $logind hibernate
+            ;;
+        logout)
+            $EXIT_COMMAND
+            ;;
+        reboot)
+            $logind reboot
+            ;;
+        shutdown)
+            $logind poweroff
+            ;;
+        *)
+            notify-send "Custom Exit" "Invalid Argument" "Try again with: lock | suspend | hibernate | reboot | shutdown"
+            exit 2
+    esac
+
+    exit 0
+}
+
+main
