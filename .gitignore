@@ -3,3 +3,4 @@ kitty-themes
 .config/zsh/workstuff.sh
 .config/zsh/.zcompdump
 .config/autorandr/*/**
+**/__pycache__/**
