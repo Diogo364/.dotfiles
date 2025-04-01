@@ -2,8 +2,10 @@
 
 set -e
 
-WALLPAPER_PATH=$HOME/Pictures/wallpaper/current_wallpaper.jpg
-SET_WALLPAPER_COMMAND="feh --bg-scale ${WALLPAPER_PATH}"
+# AVAILABLE BACKENDS:
+# haishoku colorz colorthief wal
+BACKEND=wal
+
 FIND_IMAGE_COMMAND="sxiv -t -o"
 SEARCH_ROOT=(
     /usr/share/backgrounds
@@ -11,9 +13,8 @@ SEARCH_ROOT=(
 )
 
 change-wallpaper(){
-    [[ -f "${WALLPAPER_PATH}" ]] && rm "${WALLPAPER_PATH}"
-    ln -s "$1" "${WALLPAPER_PATH}"
-    $SET_WALLPAPER_COMMAND
+    wal --backend ${BACKEND} -n -i "$@"
+    feh --bg-scale "$(< "${HOME}/.cache/wal/wal")"
 }
 
 
