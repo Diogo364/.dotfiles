@@ -10,4 +10,4 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Pip completion
-eval "$(pip completion --zsh)"
+# eval "$(pip completion --zsh)"
