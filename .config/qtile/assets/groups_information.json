@@ -30,8 +30,7 @@
         "screen_affinity": 0,
         "layouts": [
             "MonadTall",
-            "Max",
-            "Bsp"
+            "Max"
         ]
     },
     {

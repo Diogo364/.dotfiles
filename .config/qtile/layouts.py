@@ -24,7 +24,7 @@ def set_layouts(custom_context: CustomContext):
         "MonadTall",
         "Max",
         "Stack",
-        "MonadWide",
+        # "MonadWide",
         # "Tile",
         # "RatioTile",
         # "Columns",

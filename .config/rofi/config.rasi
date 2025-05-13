@@ -13,4 +13,4 @@ configuration {
     combi-modi: "run,drun";
 }
 
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+@theme "/home/dinascimento/.cache/wal/colors-rofi-light.rasi"

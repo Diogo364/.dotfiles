@@ -1,0 +1,9 @@
+{
+    "executionEnvironments": [
+        {
+            "root": "src",
+            "pythonVersion": "3.10",
+            "pythonPlatform": "Linux"
+        }
+    ]
+}
