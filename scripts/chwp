@@ -2,10 +2,6 @@
 
 set -e
 
-# AVAILABLE BACKENDS:
-# haishoku colorz colorthief wal
-BACKEND=wal
-
 FIND_IMAGE_COMMAND="sxiv -t -o"
 SEARCH_ROOT=(
     /usr/share/backgrounds
@@ -13,7 +9,7 @@ SEARCH_ROOT=(
 )
 
 change-wallpaper(){
-    wal --backend ${BACKEND} -n -i "$@"
+    wal -n -i "$@"
     feh --bg-scale "$(< "${HOME}/.cache/wal/wal")"
 }
 
