@@ -232,6 +232,12 @@ def set_keybindings(custom_context: CustomContext):
                 lazy.spawn(custom_context.apps_dict["complete_launcher_cmd"]),
                 desc="Run launcher strong",
             ),
+            Key(
+                [mod, "shift"],
+                "f",
+                lazy.spawn(custom_context.apps_dict["file_fuzzy_finder"]),
+                desc="Run launcher strong",
+            ),
             Key(["mod1"], "F4", lazy.window.kill(), desc="Kill focused window"),
             Key(
                 [mod, "shift"],

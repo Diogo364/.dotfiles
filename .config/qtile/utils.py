@@ -29,6 +29,7 @@ default_apps = dict(
     ibrowser='brave-browser --profile-directory="Profile 2"',
     mbrowser='brave-browser --profile-directory="Profile 1"',
     launcher_cmd="rofi -show drun",
+    file_fuzzy_finder="rofi -show filebrowser",
     complete_launcher_cmd='rofi -run-list-command ". ~/.local/bin/list-alias" -run-command "/bin/zsh -i -c \'{cmd}\'" -show',
     pulse="/opt/pulsesecure/bin/pulseUI",
     file_manager="nautilus",
