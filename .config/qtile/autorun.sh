@@ -5,9 +5,10 @@ setxkbmap -layout us -variant intl -option ctrl:nocaps
 
 i3enable-touchpad &
 
-wal -R &
+autorandr --change &
+
+wal -Rs &
 xrdb ~/.Xresources &
 feh --bg-tile "$(< "${HOME}/.cache/wal/wal")"
 
-autorandr --change &
 notify-send -u low  "Loaded Configuration Script"
