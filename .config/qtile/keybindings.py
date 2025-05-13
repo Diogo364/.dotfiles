@@ -416,6 +416,24 @@ def set_keybindings(custom_context: CustomContext):
         ]
     )
 
+    # Screen Brightness
+    keys.extend(
+        [
+            Key(
+                [],
+                "XF86MonBrightnessDown",
+                lazy.spawn("xbacklight -dec 20"),
+                desc="Decrease screen brightness",
+            ),
+            Key(
+                [],
+                "XF86MonBrightnessUp",
+                lazy.spawn("xbacklight -inc 20"),
+                desc="Increase screen brightness",
+            ),
+        ]
+    )
+
     # Screenshot Control
     keys.extend(
         [
