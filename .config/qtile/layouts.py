@@ -21,13 +21,13 @@ def set_layouts(custom_context: CustomContext):
     )
 
     return build_layout(
-        "MonadTall",
+        "Columns",
         "Max",
-        "Stack",
+        # "MonadTall",
+        # "Stack",
         # "MonadWide",
         # "Tile",
         # "RatioTile",
-        # "Columns",
         # "Bsp",
         # "Matrix",
         # "TreeTab",
@@ -80,6 +80,7 @@ def set_floating(custom_context: CustomContext):
         Match(wm_class="Timeset-gui"),
         Match(wm_class="Totem"),
         Match(wm_class="Xfburn"),
+        Match(wm_class="com.cisco.anyconnect.gui"),
     ]
 
     # Regex Rules

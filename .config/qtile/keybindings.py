@@ -5,79 +5,6 @@ from libqtile.lazy import lazy
 from utils import CustomContext
 
 
-def get_min_max_x_windows_for_group(qtile):
-    max_window_position = max(
-        [win.get_position()[0] for win in qtile.current_group.windows]
-    )
-    min_window_position = min(
-        [win.get_position()[0] for win in qtile.current_group.windows]
-    )
-    return min_window_position, max_window_position
-
-
-def screen_is_at_edge(qtile, window, direction):
-    min_x, max_x = get_min_max_x_windows_for_group(qtile)
-    if direction == "left":
-        return window.get_position()[0] == min_x
-    elif direction == "right":
-        return window.get_position()[0] == max_x
-
-
-def target_screen_exists(qtile, target_screen_idx):
-    return 0 <= target_screen_idx < len(qtile.screens)
-
-
-def move_group_to_screen(qtile, screen_number):
-    current_group = qtile.current_group
-    if len(qtile.screens) > 1 and screen_number < len(qtile.screens):
-        current_group.toscreen(screen_number)
-        qtile.focus_screen(current_group.screen.index)
-
-
-def move_window(qtile, direction: str):
-    sorted_screens = sorted(qtile.screens, key=lambda x: x.get_rect().x)
-    screens_order_dict = {
-        screen.index: pos for pos, screen in enumerate(sorted_screens)
-    }
-
-    if len(qtile.screens) > 1:
-        current_window = qtile.current_window
-        current_screen = qtile.current_screen
-        target_screen = (
-            screens_order_dict[current_screen.index] - 1
-            if direction == "left"
-            else screens_order_dict[current_screen.index] + 1
-        )
-
-        if target_screen_exists(qtile, target_screen) and screen_is_at_edge(
-            qtile, current_window, direction
-        ):
-            group = qtile.screens[screens_order_dict[target_screen]].group
-
-            current_window.toscreen(screens_order_dict[target_screen])
-            qtile.focus_screen(group.screen.index)
-            current_window.focus(warp=True)
-        else:
-            if direction == "left":
-                qtile.current_layout.shuffle_left()
-            else:
-                qtile.current_layout.shuffle_right()
-
-
-# kick a window to another screen (handy during presentations)
-def kick_to_next_screen(qtile, direction=1):
-    other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(
-        qtile.screens
-    )
-    othergroup = None
-    for group in qtile.cmd_groups().values():
-        if group["screen"] == other_scr_index:
-            othergroup = group["name"]
-            break
-    if othergroup:
-        qtile.moveToGroup(othergroup)
-
-
 def set_keybindings(custom_context: CustomContext):
     keys = []
     mod = custom_context.mod_key
@@ -117,41 +44,30 @@ def set_keybindings(custom_context: CustomContext):
             Key(
                 [mod, "shift"],
                 "h",
-                lazy.function(move_window, direction="left"),
+                lazy.layout.shuffle_left().when(layout=["columns"]),
+                lazy.layout.swap_left().when(layout=["monadtall"]),
                 desc="Move window to the left",
             ),
             Key(
                 [mod, "shift"],
                 "j",
-                lazy.layout.shuffle_down(),
+                lazy.layout.shuffle_down().when(layout=["columns", "monadtall"]),
                 lazy.layout.move_down().when(layout=["treetab"]),
                 desc="Move window down",
             ),
             Key(
                 [mod, "shift"],
                 "k",
-                lazy.layout.shuffle_up(),
+                lazy.layout.shuffle_up().when(layout=["columns", "monadtall"]),
                 lazy.layout.move_up().when(layout=["treetab"]),
                 desc="Move window up",
             ),
             Key(
                 [mod, "shift"],
                 "l",
-                lazy.function(move_window, direction="right"),
+                lazy.layout.shuffle_right().when(layout=["columns"]),
+                lazy.layout.swap_right().when(layout=["monadtall"]),
                 desc="Move window to the right",
-            ),
-            # TODO: This isnt working
-            Key([mod, "control"], "p", lazy.function(kick_to_next_screen)),
-            Key([mod, "control"], "n", lazy.function(kick_to_next_screen, -1)),
-            Key(
-                [mod, "control"],
-                "1",
-                lazy.function(move_group_to_screen, screen_number=0),
-            ),
-            Key(
-                [mod, "control"],
-                "2",
-                lazy.function(move_group_to_screen, screen_number=1),
             ),
         ]
     )
