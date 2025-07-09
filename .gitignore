@@ -1,4 +1,5 @@
 .config/tmux/plugins/**
+.config/i3blocks/scripts/**
 kitty-themes
 .config/zsh/workstuff.sh
 .config/zsh/.zcompdump

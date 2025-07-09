@@ -35,14 +35,4 @@ sudo apt update && sudo apt dist-upgrade -y
 flatpak update
 sudo apt autoclean
 sudo apt autoremove -y
-
-# ----------------------------- Restore Custom Keybindings ----------------------------- #
-cat ./keybindings/ubuntu-gnome/media-keybindings | dconf load /org/gnome/settings-daemon/plugins/media-keys/
-cat ./keybindings/ubuntu-gnome/desktop-keybindings | dconf load /org/gnome/desktop/wm/keybindings/
-cat ./keybindings/ubuntu-gnome/shell-keybindings | dconf load /org/gnome/shell/keybindings/
-cat ./keybindings/ubuntu-gnome/mutter-keybindings | dconf load /org/gnome/mutter/keybindings/
-cat ./keybindings/ubuntu-gnome/wayland-keybindings | dconf load /org/gnome/mutter/wayland/keybindings/
-
-# ---------------------------------------------------------------------- #
-
 bash ./github_instalations.sh

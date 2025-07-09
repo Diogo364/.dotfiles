@@ -15,7 +15,6 @@ echo "Updating configurations on $PACCONF"
 
 sudo sed -i -E 's/#?Color/Color/g' $PACCONF
 sudo sed -i -E 's/#?ParallelDownloads .*/ParallelDownloads \= 10/g' $PACCONF
-sudo sed -i '/Color/aILoveCandy' $PACCONF
 
 # Updating packages
 echo "Updating system software"
