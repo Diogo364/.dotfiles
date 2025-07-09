@@ -2,6 +2,9 @@
 
 ZSHRC="${ZDOTDIR}/.zshrc"
 
+export NVIM_LLM_CHAT_MODEL=qwen3:8b
+export NVIM_LLM_CODE_MODEL=qwen2.5-coder:7b-instruct
+
 # Aliases
 ## Browser
 alias browser=brave-browser
@@ -70,3 +73,4 @@ alias ghbr='\
         --bind "enter:become(gh repo view {} --web | glow)" \
         --bind="ctrl-v:toggle-preview" \
     '
+

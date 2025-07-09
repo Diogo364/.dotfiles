@@ -10,8 +10,6 @@ load-tilix:
 dump-tilix:
 	dconf dump /com/gexperts/Tilix/ > ./tilix.dconf
 
-set-custom-scritp:
-
 set-custom-scritps:
 	if  [ ! -d ${LOCAL_BIN_PATH} ]; then \
 		mkdir ${LOCAL_BIN_PATH}; \
