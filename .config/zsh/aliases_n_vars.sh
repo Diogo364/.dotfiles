@@ -27,6 +27,7 @@ alias yks="yank -s"
 alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes"
 alias pp='popd'
 alias ppd='popd'
+alias ob="cd ${OBSIDIAN_VAULT}"
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -39,6 +40,8 @@ alias dnvim="nvim --server localhost:${DEVCONTAINER_NVIM_PORT} --remote-ui"
 alias tmpnvim='nvim /tmp/something.txt'
 alias nzsh="nvim ${ZSHRC}"
 alias nn="nvim ${NVIM_CONFIG_PATH}"
+alias no="cd ${PERSONAL_VAULT}; nvim ."
+alias nw="cd ${WORK_VAULT}; nvim ."
 
 ## lean-nvim
 alias lvim='NVIM_APPNAME=lean-nvim nvim'
@@ -54,6 +57,7 @@ alias dotf="tm ${DOTFILES_PATH}"
 alias conf="tm ${CONFIG_PATH}"
 alias tnn="tm ${NVIM_CONFIG_PATH} nvim"
 alias tqfind='tmux new "qfind"'
+alias tobsi="tm ${OBSIDIAN_VAULT}"
 
 #Git
 alias lg='lazygit'
@@ -71,4 +75,3 @@ alias ghbr='\
         --bind "enter:become(gh repo view {} --web | glow)" \
         --bind="ctrl-v:toggle-preview" \
     '
-
