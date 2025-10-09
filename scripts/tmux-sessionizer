@@ -16,9 +16,10 @@ session_list+="$CREATE_NEW_VALUE"
 
 FIND_ROOT=(
 	~/Documents
+    ~/Documents/myProjects
+    ~/Documents/workstuff
 	~/.config
 	~/.dotfiles
-	~/Documents/myProjects
 )
 
 if [[ $# > 0 ]]; then
