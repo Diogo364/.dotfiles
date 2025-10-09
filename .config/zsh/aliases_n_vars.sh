@@ -2,6 +2,7 @@
 
 ZSHRC="${ZDOTDIR}/.zshrc"
 
+export SOURCER=1
 export NVIM_LLM_CHAT_MODEL=qwen3:8b
 export NVIM_LLM_CODE_MODEL=qwen2.5-coder:7b-instruct
 
