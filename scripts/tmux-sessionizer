@@ -18,9 +18,6 @@ FIND_ROOT=(
 	~/Documents
 	~/.config
 	~/.dotfiles
-	~/Documents/workstuff/QA_Tests
-	~/Documents/workstuff/Databases
-	~/Documents/workstuff/aiqa
 	~/Documents/myProjects
 )
 
