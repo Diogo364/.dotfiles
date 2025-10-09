@@ -24,9 +24,6 @@ alias dropbox='python $HOME/Documents/Personal/dropbox.py'
 alias ykp="yank -p"
 alias yks="yank -s"
 alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes"
-alias nconf="qconf nvim"
-alias bconf="qconf bat"
-alias rconf="qconf -r nvim"
 alias pp='popd'
 alias ppd='popd'
 alias -g ...='../..'
@@ -55,7 +52,7 @@ alias tmnew='tmux-sessionizer $(new-project)'
 alias dotf="tm ${DOTFILES_PATH}"
 alias conf="tm ${CONFIG_PATH}"
 alias tnn="tm ${NVIM_CONFIG_PATH} nvim"
-alias tqconf='tmux new "qconf nvim"'
+alias tqfind='tmux new "qfind"'
 
 #Git
 alias lg='lazygit'
