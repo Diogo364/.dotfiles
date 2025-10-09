@@ -1,6 +1,7 @@
 # Folders
 __pycache__/
 .cache/
+.obsidian/
 .git/
 .gsd-keyboard.settings-ported/
 .jukit/
