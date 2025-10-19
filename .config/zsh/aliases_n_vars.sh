@@ -28,6 +28,7 @@ alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_contr
 alias pp='popd'
 alias ppd='popd'
 alias ob="cd ${OBSIDIAN_VAULT}"
+alias obp="cd ${PERSONAL_VAULT}"
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
