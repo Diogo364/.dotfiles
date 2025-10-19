@@ -13,13 +13,16 @@ export ZDOTDIR="${CONFIG_PATH}/zsh"
 export ZSH_PLUGINS="${HOME}/.zsh"
 export OBSIDIAN_VAULT="${HOME}/Documents/Personal/my-obsidian"
 export PERSONAL_VAULT="${OBSIDIAN_VAULT}/personal"
-export WORK_VAULT="${OBSIDIAN_VAULT}/work"
+# export WORK_VAULT="${OBSIDIAN_VAULT}/work"
 
 export SHELL=/bin/zsh
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export DEVCONTAINER_NVIM_PORT=8008
+
+export GTK_IM_MODULE=cedilla
+export QT_IM_MODULE=cedilla
 
 . "$HOME/.cargo/env"
 [ -f ~/.profile-custom ] && . ~/.profile-custom
