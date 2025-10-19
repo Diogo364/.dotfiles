@@ -2,9 +2,7 @@
 [[ $(cat /proc/1/comm) == "systemd" ]] && logind=systemctl || logind=loginctl
 
 set_menu() {
-    if command -v wofi; then
-        MENU="wofi -p exit> -dmenu"
-    elif command -v rofi; then
+    if command -v rofi; then
         MENU="rofi -p exit> -dmenu"
     else
         MENU="dmenu"
