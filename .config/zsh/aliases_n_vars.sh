@@ -27,8 +27,8 @@ alias yks="yank -s"
 alias jukit_kitty="kitty --listen-on=unix:@"$(date +%s%N)" -o allow_remote_control=yes"
 alias pp='popd'
 alias ppd='popd'
-alias ob="cd ${OBSIDIAN_VAULT}"
-alias obp="cd ${PERSONAL_VAULT}"
+alias ob="cd ${PERSONAL_VAULT}"
+alias wb="cd ${WORK_VAULT}"
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -58,7 +58,6 @@ alias dotf="tm ${DOTFILES_PATH}"
 alias conf="tm ${CONFIG_PATH}"
 alias tnn="tm ${NVIM_CONFIG_PATH} nvim"
 alias tqfind='tmux new "qfind"'
-alias tobsi="tm ${OBSIDIAN_VAULT}"
 
 #Git
 alias lg='lazygit'

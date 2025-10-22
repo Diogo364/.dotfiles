@@ -11,9 +11,9 @@ export DOTFILES_PATH=${HOME}/.dotfiles
 export MANPATH="/usr/local/man:${MANPATH}"
 export ZDOTDIR="${CONFIG_PATH}/zsh"
 export ZSH_PLUGINS="${HOME}/.zsh"
-export OBSIDIAN_VAULT="${HOME}/Documents/Personal/my-obsidian"
-export PERSONAL_VAULT="${OBSIDIAN_VAULT}/personal"
-# export WORK_VAULT="${OBSIDIAN_VAULT}/work"
+export OBSIDIAN_PATH="${HOME}/Documents/Personal/obsidian" 
+export PERSONAL_VAULT="${OBSIDIAN_PATH}/my-obsidian"
+export WORK_VAULT="${OBSIDIAN_PATH}/work-vault"
 
 export SHELL=/bin/zsh
 
